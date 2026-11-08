@@ -743,7 +743,8 @@ svg.leaflet-image-layer.leaflet-interactive path {
 .mk span{transform:rotate(45deg);color:var(--pin-fg);font:700 12px var(--f-mono)}
 .mk.sel{outline:3px solid var(--accent)}
 .poi{font-size:15px;line-height:1;background:#fff;border:1px solid #aab4c0;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;box-shadow:0 1px 3px rgba(0,0,0,.3)}
-.plab{font:500 11px var(--f-body);padding:1px 5px;color:#14262b}
+.plab .pk{display:block;font-size:10px;color:#0e6f80;font-weight:700}
+.plab{font:500 11px var(--f-body);line-height:1.25;padding:1px 5px;color:#14262b}
 .pop b{font-size:.9rem}.pop p{margin:4px 0;font-size:.8rem;line-height:1.45}.pop a{color:#0b6bcb}
 .leaflet-container{font-family:var(--f-body)}
 .gchips{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
@@ -758,7 +759,7 @@ svg.leaflet-image-layer.leaflet-interactive path {
 <div class="wrap">
   <header>
     <h1>소영 DM에서 찾은 다낭 장소</h1>
-    <p class="sub">ahffnzz 계정의 소영 대화방에서 "다낭" 컬렉션 알림이 붙은 게시물을 전체 대화 기간에 걸쳐 확인했습니다. 캡션, 작성자 답글, 영상 설명에 가게나 지역이 나온 곳만 지도에 찍었습니다.</p>
+    <p class="sub">소영이 보낸 인스타 DM 중 "다낭" 컬렉션 알림이 붙은 게시물을 전체 대화 기간에 걸쳐 확인했습니다. 캡션, 작성자 답글, 영상 설명에 가게나 지역이 나온 곳만 지도에 찍었습니다.</p>
   </header>
   <div class="stats">
     <div class="stat"><b>12</b>지도에 찍은 장소</div>
@@ -871,10 +872,13 @@ var G={"식당":["🍽️",["restaurant","fast_food"]],"카페":["☕",["cafe","
 var K2G={};Object.keys(G).forEach(function(g){G[g][1].forEach(function(k){K2G[k]=g})});
 var gOn={};Object.keys(G).forEach(function(g){gOn[g]=(g==="식당"||g==="카페"||g==="쇼핑"||g==="관광")});
 var poiLayer=L.layerGroup().addTo(map),poiMk=[];
+var KK={restaurant:"식당",cafe:"카페",hotel:"호텔",convenience:"편의점",clothes:"옷가게",bar:"바",massage:"마사지",fast_food:"패스트푸드",hostel:"호스텔",bank:"은행",bakery:"빵집",gift:"기념품점",guest_house:"게스트하우스",pharmacy:"약국",pub:"펍",place_of_worship:"사원·성당",supermarket:"슈퍼마켓",department_store:"백화점",atm:"ATM",museum:"박물관",attraction:"명소",marketplace:"시장",theatre:"극장",community_centre:"문화센터"};
+var KC={vietnamese:"베트남식",coffee_shop:"커피숍",seafood:"해산물","hải_sản":"해산물",pizza:"피자",local:"현지식",regional:"지역 음식",korean:"한식",breakfast:"아침식사",burger:"햄버거",indian:"인도식",asian:"아시아 음식",sandwich:"샌드위치",japanese:"일식",steak_house:"스테이크",steak:"스테이크",cake:"케이크",american:"미국식",tea:"차",italian:"이탈리안",noodles:"국수",noodle:"국수",chicken:"치킨",international:"다국적 음식",ice_cream:"아이스크림",fish:"생선",thai:"태국식",sushi:"초밥",russian:"러시아식",ramen:"라멘",pasta:"파스타",italian_pizza:"이탈리안 피자",french:"프랑스식",diner:"다이너",salad:"샐러드",juice:"주스",grill:"구이",dessert:"디저트",deli:"델리",coffee:"커피",chinese:"중식",bubble_tea:"버블티",barbecue:"바비큐",bbq:"바비큐",mexican:"멕시코식",curry:"카레",bakery:"빵",wine:"와인",soba:"소바",pancake:"팬케이크",kebab:"케밥",middle_eastern:"중동식",live_music:"라이브 음악",lemonade:"레모네이드",european:"유럽식",brunch:"브런치",greek:"그리스식",fusion:"퓨전"};
+function ko(e){var c=[];if(e.c)e.c.split(";").forEach(function(t){var v=KC[t.toLowerCase()];if(v&&c.indexOf(v)<0)c.push(v)});return (KK[e.k]||"")+(c.length?" · "+c.join(", "):"")}
 POI.forEach(function(e){var g=K2G[e.k];if(!g)return;
   var m=L.marker([e.la,e.lo],{icon:L.divIcon({className:"",html:'<div class="poi">'+G[g][0]+'</div>',iconSize:[22,22]}),zIndexOffset:-500});
-  m.bindTooltip(e.n,{direction:"right",offset:[10,0],className:"plab"});
-  m.bindPopup('<div class="pop"><b>'+esc(e.n)+'</b><p>'+g+(e.c?" · "+esc(e.c):"")+(e.h?"<br>영업시간 "+esc(e.h):"")+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(e.n+" Da Nang")+'">구글지도</a> · <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+encodeURIComponent(e.n)+'">네이버지도</a></div>');
+  m.bindTooltip(esc(e.n)+'<br><span class="pk">'+esc(ko(e))+'</span>',{direction:"right",offset:[10,0],className:"plab"});
+  m.bindPopup('<div class="pop"><b>'+esc(e.n)+'</b><p>'+esc(ko(e)||g)+(e.h?"<br>영업시간 "+esc(e.h):"")+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(e.n+" Da Nang")+'">구글지도</a> · <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+encodeURIComponent(e.n)+'">네이버지도</a></div>');
   m._g=g;poiMk.push(m)});
 function loadPoi(){
   var z=map.getZoom(),b=map.getBounds().pad(0.1);
@@ -901,10 +905,11 @@ function render(){
     var d=el("div","card"+(visible(p)?"":" off")+(sel===p.n?" sel":""));d.id="card"+p.n;d.tabIndex=0;
     var top=el("div","top");top.appendChild(el("span","num",p.n));
     var w=el("div");w.appendChild(el("div","name",p.name));w.appendChild(el("div","tag",p.cat+" · "+ZN[p.n]));top.appendChild(w);d.appendChild(top);
-    d.appendChild(el("p","desc",p.desc));d.appendChild(el("div","addr",p.addr));
-    d.appendChild(el("div","src","출처 게시물: "+p.src));
-    var a=el("a",null,"구글지도에서 열기");a.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(p.q);a.target="_blank";a.rel="noopener";
+    d.appendChild(el("div","addr",p.addr));
+        var a=el("a",null,"구글지도에서 열기");a.href="https://www.google.com/maps/search/?api=1&query="+encodeURIComponent(p.q);a.target="_blank";a.rel="noopener";
     a.addEventListener("click",function(e){e.stopPropagation()});d.appendChild(a);
+    var a2=el("a",null,"네이버지도에서 열기");a2.href="https://map.naver.com/p/search/"+encodeURIComponent(p.name.split(" (")[0]);a2.target="_blank";a2.rel="noopener";
+    a2.addEventListener("click",function(e){e.stopPropagation()});d.appendChild(a2);
     d.addEventListener("click",function(){pick(p.n,true,true)});
     l.appendChild(d)});
 }
@@ -916,8 +921,8 @@ var zj=document.getElementById("zj");
   b.addEventListener("click",function(){zone=z;cur="전체";sel=null;Array.prototype.forEach.call(zj.children,function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");render();fit()});zj.appendChild(b)});
 
 var DAYS=[
- ["DAY 1","월 11/16 · 14:00 도착 후 바로 호이안",[["14:00","다낭 공항 착륙. 입국 심사와 수하물에 약 45분 잡기"],["15:00","공항에서 호이안으로 출발 (Grab이나 예약 택시, 약 40분~1시간)"],["16:15","호이안 도착, 숙소나 가게에 짐 맡기기"],["16:45","올드타운 산책, 내원교 (일몰 17:15쯤이라 빠르게)"],["18:00","① Di Cho Hoi An 저녁 (예약 권장)"],["19:30","② 소원배 (19:30 이후가 한산, 비나 강 수위로 막힐 수 있음)"],["20:30","야시장 구경"],["21:30","다낭 숙소로 복귀 (택시 약 40분~1시간, 도착 22:30쯤)"],["피곤하면","호이안 1박으로 바꾸고 다음 날 아침 다낭으로 이동"]]],
- ["DAY 2","화 11/17 · 한시장권 (도보)",[["10:30","① 핑크성당 (아침 사진)"],["11:00","② 한시장 2층 114번 아오자이 맞춤 (1시간 제작)"],["12:00","③ 껌떰데이 점심 (제작 기다리는 동안)"],["13:30","한시장에서 아오자이 수령"],["14:30","④ 뷰스파 마사지"],["18:00","⑤ 선짜야시장 저녁 (택시 약 5분)"]]],
+ ["DAY 1","월 11/16 · 14:00 도착 후 바로 호이안 · Grand Sunrise Palace Hoi An 1박",[["14:00","다낭 공항 착륙. 입국 심사와 수하물에 약 45분 잡기"],["15:00","공항에서 호이안으로 출발 (Grab이나 예약 택시, 약 40분~1시간)"],["16:15","호이안 도착, Grand Sunrise Palace Hoi An에 체크인하고 짐 두기"],["16:45","올드타운 산책, 내원교 (일몰 17:15쯤이라 빠르게)"],["18:00","① Di Cho Hoi An 저녁 (예약 권장)"],["19:30","② 소원배 (19:30 이후가 한산, 비나 강 수위로 막힐 수 있음)"],["20:30","야시장 구경"],["21:30","Grand Sunrise Palace Hoi An으로 돌아가 휴식 (호이안 1박)"]]],
+ ["DAY 2","화 11/17 · 한시장권 (도보)",[["08:30","호이안 숙소 체크아웃, 조식 후 다낭으로 이동 (택시 약 40분~1시간)"],["10:30","① 핑크성당 (아침 사진)"],["11:00","② 한시장 2층 114번 아오자이 맞춤 (1시간 제작)"],["12:00","③ 껌떰데이 점심 (제작 기다리는 동안)"],["13:30","한시장에서 아오자이 수령"],["14:30","④ 뷰스파 마사지"],["18:00","⑤ 선짜야시장 저녁 (택시 약 5분)"]]],
  ["DAY 3","수 11/18 · 미케비치 (택시 이동)",[["10:00","미케비치 산책"],["11:30","① 허벌피자 점심 (불쇼 되는 지점 확인)"],["14:00","카페 또는 마사지 (논스파는 미검증)"],["15:30","② 다모아마켓 기념품 (택시 약 15분)"],["17:30","③ 목식당 해산물 저녁, 카톡 예약 필수 (택시 약 8분)"],["만석이면","대안: Hải sản Bà Rô"]]],
  ["DAY 4","목 11/19 · 다낭 여유일 (우기 예비일)",[["오전","비 때문에 못 한 일정 몰아서 하기. 호이안이 비로 막혔다면 이 날로 이동"],["점심","Poseidon 뷔페 (11:00~14:00, 미검증) 또는 Bà Rô"],["오후","① 한시장 쇼핑 마무리, 마사지"],["17:30","② 헬리오야시장 (17:00~22:30, 롯데마트와 가까움, 운영 확인 필요)"],["밤","용다리 일반 야경 (불쇼는 금·토·일이라 이번 일정에선 못 봄)"]]],
  ["DAY 5","금 11/20 · 귀국일 (14:00 출발, 한국 20:00쯤 도착)",[["07:30","호텔 조식이나 근처 아침 (칼디앤모어 반미는 미검증)"],["08:30","한시장이나 근처에서 마지막 기념품 (숙소가 한시장 근처일 때)"],["10:00","숙소 체크아웃, 공항으로 출발 (시내에서 약 20~30분)"],["11:00","다낭 공항 도착, 체크인 (국제선은 출발 3시간 전)"],["14:00","출발"]]],
