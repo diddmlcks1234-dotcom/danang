@@ -885,15 +885,20 @@ var VS=[
  {name:"Tipsy 2hand Vintage",lat:15.8775476,lon:108.3254735,addr:"Nguyễn Thị Minh Khai, Minh An, Hội An (올드타운 골목 안)",info:"구글 5.0 (후기 194개). 체크셔츠·목걸이·액세서리 등 종류가 다양하고 1~2층. 사장님 친절하다는 한국인 후기 있음. 월요일 10:00 오픈. 올드타운이라 내원교·Di Cho Hoi An에서 도보 약 5~10분.",src:"nangman.ste, pin.vn",ok:"좌표는 구글지도 링크 기준"},
  {name:"Iron 2 Hand Vintage",lat:15.8785219,lon:108.3355873,addr:"5 Phạm Hồng Thái, Hội An",info:"구글 4.9 (후기 407개). 22:00까지 영업. 올드타운 동쪽 가장자리라 올드타운 일정에서 도보 약 10분.",src:"pin.vn",ok:"좌표는 구글지도 기준"},
  {name:"Tit2hand",lat:15.87992,lon:108.33835,addr:"449 Cửa Đại, Hội An",info:"구글 4.8 (후기 399개). 남성 빈티지 의류 위주, 여성용도 일부 있고 가격은 싼 곳도 비싼 곳도 있다는 후기. 올드타운에서 택시 약 5분(약 1km).",src:"pin.vn",ok:"좌표는 구글지도 플러스코드(V8HQ+X8)로 계산한 대략값"},
- {name:"Bee Hoi An Vintage 2hand",lat:15.8838955,lon:108.3480298,addr:"275 Cửa Đại, Hội An",info:"구글 4.8 (후기 178개). 올드타운에서 약 2km라 택시로 가야 하고, 일정에서는 멀어서 우선순위 낮음. 월요일 09:00 오픈.",src:"pin.vn",ok:"좌표는 구글지도 기준"}
+ {name:"Bee Hoi An Vintage 2hand",lat:15.8838955,lon:108.3480298,addr:"275 Cửa Đại, Hội An",info:"구글 4.8 (후기 178개). 올드타운에서 약 2km라 택시로 가야 하고, 일정에서는 멀어서 우선순위 낮음. 월요일 09:00 오픈.",src:"pin.vn",ok:"좌표는 구글지도 기준"},
+ {name:"Tiệm Gốm Lá (빈티지 그릇)",lat:16.0737474,lon:108.2196679,addr:"5 Lê Thánh Tôn, Hải Châu, Đà Nẵng",info:"[다낭] 구글 4.9 (후기 26개). 1~2천 원대 빈티지 그릇과 컵이 가득한 곳. 핑크성당·한시장 쪽이라 DAY 2 동선에서 가까움. 월요일 07:30 오픈.",src:"soolrus",ok:"좌표는 구글지도 기준"},
+ {name:"Hana 34 Vintage Jewelry",lat:16.0483025,lon:108.2416877,addr:"19 Hoàng Kế Viêm, Ngũ Hành Sơn, Đà Nẵng",info:"[다낭 미케비치 근처] 구글 5.0 (후기 약 1,890개). 빈티지 주얼리와 80~90년대 시계. 월요일 12:30 오픈.",src:"soolrus",ok:"좌표는 구글지도 기준"},
+ {name:"Yen May Vintage",lat:16.0572604,lon:108.2426933,addr:"45/3 An Hải Đông 1, An Hải, Đà Nẵng",info:"[다낭 미케비치 쪽] 구글 4.9 (후기 285개). 여름 코어룩, 내추럴한 옷이 많다는 후기. 21:00까지. 월요일 10:00 오픈.",src:"soolrus",ok:"좌표는 구글지도 기준"},
+ {name:"Thrift-Vintage 2Hand Shop by Nighki2hand",lat:16.0509787,lon:108.2401446,addr:"94/2 Châu Thị Vĩnh Tế, Ngũ Hành Sơn, Đà Nẵng",info:"[다낭 미케비치 근처] 구글 5.0 (후기 약 1,875개). 티셔츠·바지 위주, 브랜드 티셔츠가 많다는 후기. 22:00까지.",src:"soolrus",ok:"좌표는 구글지도 기준"},
+ {name:"43DMT.THRIFT",lat:16.0589034,lon:108.2415856,addr:"107 Lê Hữu Trác, An Hải, Đà Nẵng",info:"[다낭 미케비치 쪽] 구글 5.0 (후기 330개). 키치한 프린팅 티셔츠와 바지, 가격이 착하다는 후기. 21:30까지. 월요일 10:00 오픈.",src:"soolrus",ok:"좌표는 구글지도 기준"}
 ];
 (function(){
   var st=document.createElement("style");st.textContent=".vk{width:28px;height:28px;border-radius:50%;background:#1f9d55;color:#fff;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.5);font:700 13px var(--f-mono);display:grid;place-items:center}";document.head.appendChild(st);
   VS.forEach(function(v){
     var m=L.marker([v.lat,v.lon],{icon:L.divIcon({className:"",html:'<div class="vk">V</div>',iconSize:[28,28],iconAnchor:[14,28],popupAnchor:[0,-26]}),zIndexOffset:1100});
-    m.bindPopup('<div class="pop"><b>👚 '+esc(v.name)+' (호이안 빈티지샵)</b><p>'+esc(v.info)+'</p><p>'+esc(v.addr)+'</p><p style="font-size:.75rem;opacity:.7">출처 인스타: '+esc(v.src)+' · '+esc(v.ok)+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(v.name+" Hoi An")+'">구글지도</a></div>');
+    m.bindPopup('<div class="pop"><b>👚 '+esc(v.name)+' (빈티지샵)</b><p>'+esc(v.info)+'</p><p>'+esc(v.addr)+'</p><p style="font-size:.75rem;opacity:.7">출처 인스타: '+esc(v.src)+' · '+esc(v.ok)+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(v.name+" Hoi An")+'">구글지도</a></div>');
     m.addTo(map)});
-  var n=document.createElement("div");n.className="note";n.textContent="초록 V 핀 = 호이안 빈티지샵 (인스타 #호이안빈티지 게시물에서 찾은 곳). 호이안 올드타운 쪽을 확대하면 보여요.";
+  var n=document.createElement("div");n.className="note";n.textContent="초록 V 핀 = 빈티지샵 (인스타에서 찾은 곳, 호이안 4곳 + 다낭 5곳). 핀을 누르면 평점과 영업 정보가 나와요.";
   var g=document.getElementById("gchips");g.parentNode.insertBefore(n,g)})();
 /* 주변 가게 */
 var G={"식당":["🍽️",["restaurant","fast_food"]],"카페":["☕",["cafe","bakery"]],"술집":["🍺",["bar","pub"]],"쇼핑":["🛍️",["convenience","supermarket","mall","clothes","gift","department_store","marketplace"]],"마사지·스파":["💆",["spa","massage"]],"숙소":["🏨",["hotel","hostel","guest_house"]],"관광":["📍",["attraction","museum","viewpoint","place_of_worship"]],"약국·ATM":["💊",["pharmacy","atm","bank"]]};
