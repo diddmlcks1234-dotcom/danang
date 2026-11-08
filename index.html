@@ -867,6 +867,19 @@ P.forEach(function(p){
   var m=L.marker([p.lat,p.lon],{icon:pinIcon(p.n),zIndexOffset:1000});
   m.bindPopup('<div class="pop"><b>'+p.n+'. '+esc(p.name)+'</b><p>'+esc(p.desc)+'</p><p>'+esc(p.addr)+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(p.q)+'">구글지도</a> · <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+encodeURIComponent(p.name.split(" (")[0])+'">네이버지도</a></div>');
   m.on("click",function(){pick(p.n,false,false)});markers[p.n]=m});
+/* 추천 호텔 (소영 게시물이 아니라 조건에 맞춰 찾은 후보, 파란 H 핀) */
+var HT=[
+ {name:"브릴리언트 호텔 다낭 (Brilliant Hotel)",lat:16.0666727,lon:108.2247119,addr:"162 Bạch Đằng, Hải Châu, Đà Nẵng",info:"4성 · 아고다 9.1/10 (후기 약 11,300개), 구글 4.4/5 (약 2,600개). 한시장에서 약 200m. 가성비가 좋고 직원이 친절하다는 후기가 많음. 조식에 쌀국수 포함, 17층 루프탑에서 용다리 야경 감상. 단점: 건물이 낡았고 일부 객실에서 꿉꿉한 냄새, 4층 수영장이 좁음.",near:"반경 300m에 카페 24, 식당 27, 편의점·마트 3곳(Brio mart 100m, K-mart 240m). 핑크성당 도보 약 3분."},
+ {name:"힐튼 다낭 (Hilton Da Nang)",lat:16.0726103,lon:108.2242301,addr:"50 Bạch Đằng, Hải Châu, Đà Nẵng",info:"5성 · 아고다 9.1/10 (후기 약 4,350개), 구글 4.6/5 (약 3,460개). 한시장까지 도보 약 8~10분. 직원 친절, 한강 전망 객실, 수영장·루프탑 레스토랑. 단점: 도로 쪽 오토바이 소음, 5성 치고 조식·라운지 메뉴가 적다는 의견. 브릴리언트보다 비쌈.",near:"반경 300m에 편의점 2곳(Bee 약 55m, QK Mart 약 55m), 카페 10, 식당 9. 시내 중심은 브릴리언트보다 한적한 편."}
+];
+(function(){
+  var st=document.createElement("style");st.textContent=".hk{width:30px;height:30px;border-radius:8px;background:#2f6fe4;color:#fff;border:2px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,.5);font:700 14px var(--f-mono);display:grid;place-items:center}";document.head.appendChild(st);
+  HT.forEach(function(h){
+    var m=L.marker([h.lat,h.lon],{icon:L.divIcon({className:"",html:'<div class="hk">H</div>',iconSize:[30,30],iconAnchor:[15,30],popupAnchor:[0,-28]}),zIndexOffset:1200});
+    m.bindPopup('<div class="pop"><b>🏨 '+esc(h.name)+'</b><p>'+esc(h.info)+'</p><p>'+esc(h.near)+'</p><p>'+esc(h.addr)+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent(h.name.split(" (")[1]?h.name.split(" (")[1].replace(")",""):h.name)+'">구글지도</a> · <a target="_blank" rel="noopener" href="https://map.naver.com/p/search/'+encodeURIComponent(h.name.split(" (")[0])+'">네이버지도</a><p style="font-size:.75rem;opacity:.7">평점은 vietnamguide.co.kr(2026.09 갱신) 기준이라 지금과 다를 수 있어요. 예약 전 아고다·구글에서 최신 후기를 확인하세요.</p></div>');
+    m.addTo(map)});
+  var n=document.createElement("div");n.className="note";n.textContent="파란 H 핀 = 추천 호텔 후보 (11/17~19 연박용, 소영이 보낸 장소가 아니라 후기 기준으로 고른 곳). 핀을 누르면 평점과 주변 편의시설이 나와요.";
+  var g=document.getElementById("gchips");g.parentNode.insertBefore(n,g)})();
 /* 주변 가게 */
 var G={"식당":["🍽️",["restaurant","fast_food"]],"카페":["☕",["cafe","bakery"]],"술집":["🍺",["bar","pub"]],"쇼핑":["🛍️",["convenience","supermarket","mall","clothes","gift","department_store","marketplace"]],"마사지·스파":["💆",["spa","massage"]],"숙소":["🏨",["hotel","hostel","guest_house"]],"관광":["📍",["attraction","museum","viewpoint","place_of_worship"]],"약국·ATM":["💊",["pharmacy","atm","bank"]]};
 var K2G={};Object.keys(G).forEach(function(g){G[g][1].forEach(function(k){K2G[k]=g})});
