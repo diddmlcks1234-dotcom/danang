@@ -900,6 +900,15 @@ var VS=[
     m.addTo(map)});
   var n=document.createElement("div");n.className="note";n.textContent="초록 V 핀 = 빈티지샵 (인스타에서 찾은 곳, 호이안 4곳 + 다낭 5곳). 핀을 누르면 평점과 영업 정보가 나와요.";
   var g=document.getElementById("gchips");g.parentNode.insertBefore(n,g)})();
+/* 예약한 숙소 (금색 ★ 핀) */
+var BOOKED={name:"Grand Sunrise Palace Hotel (Hoi An)",lat:15.885653,lon:108.3499007,addr:"320 Cửa Đại, Hội An Đông, Hội An",info:"예약 숙소 · 11/16(월) 첫날 1박. 구글 4.9 (후기 약 3,700개), 5성급. 올드타운에서 약 2.5km, 꾸아다이 해변 쪽이라 올드타운 오갈 때는 택시나 그랩 이용."};
+(function(){
+  var st=document.createElement("style");st.textContent=".bk{width:32px;height:32px;border-radius:50%;background:#f2b705;color:#3a2a00;border:3px solid #fff;box-shadow:0 1px 5px rgba(0,0,0,.6);font:700 17px sans-serif;display:grid;place-items:center}";document.head.appendChild(st);
+  var m=L.marker([BOOKED.lat,BOOKED.lon],{icon:L.divIcon({className:"",html:'<div class="bk">★</div>',iconSize:[32,32],iconAnchor:[16,32],popupAnchor:[0,-30]}),zIndexOffset:1500});
+  m.bindPopup('<div class="pop"><b>⭐ '+esc(BOOKED.name)+'</b><p>'+esc(BOOKED.info)+'</p><p>'+esc(BOOKED.addr)+'</p><a target="_blank" rel="noopener" href="https://www.google.com/maps/search/?api=1&query='+encodeURIComponent("Grand Sunrise Palace Hotel Hoi An")+'">구글지도</a></div>');
+  m.addTo(map);
+  var n=document.createElement("div");n.className="note";n.textContent="금색 ★ 핀 = 예약한 숙소 (호이안 Grand Sunrise Palace, 11/16 1박). 다낭 숙소는 아직 미정이라 표시하지 않았어요.";
+  var g=document.getElementById("gchips");g.parentNode.insertBefore(n,g)})();
 /* 주변 가게 */
 var G={"식당":["🍽️",["restaurant","fast_food"]],"카페":["☕",["cafe","bakery"]],"술집":["🍺",["bar","pub"]],"쇼핑":["🛍️",["convenience","supermarket","mall","clothes","gift","department_store","marketplace"]],"마사지·스파":["💆",["spa","massage"]],"숙소":["🏨",["hotel","hostel","guest_house"]],"관광":["📍",["attraction","museum","viewpoint","place_of_worship"]],"약국·ATM":["💊",["pharmacy","atm","bank"]]};
 var K2G={};Object.keys(G).forEach(function(g){G[g][1].forEach(function(k){K2G[k]=g})});
@@ -954,9 +963,9 @@ var zj=document.getElementById("zj");
   b.addEventListener("click",function(){zone=z;cur="전체";sel=null;Array.prototype.forEach.call(zj.children,function(x){x.setAttribute("aria-pressed","false")});b.setAttribute("aria-pressed","true");render();fit()});zj.appendChild(b)});
 
 var DAYS=[
- ["DAY 1","월 11/16 · 14:00 도착 후 바로 호이안 · Grand Sunrise Palace Hoi An 1박",[["14:00","다낭 공항 착륙. 입국 심사와 수하물에 약 45분 잡기"],["15:00","공항에서 호이안으로 출발 (Grab이나 예약 택시, 약 40분~1시간)"],["16:15","호이안 도착, Grand Sunrise Palace Hoi An에 체크인하고 짐 두기"],["16:45","올드타운 산책, 내원교 (일몰 17:15쯤이라 빠르게)"],["18:00","① Di Cho Hoi An 저녁 (예약 권장)"],["19:30","② 소원배 (19:30 이후가 한산, 비나 강 수위로 막힐 수 있음)"],["20:30","야시장 구경"],["21:30","Grand Sunrise Palace Hoi An으로 돌아가 휴식 (호이안 1박)"]]],
- ["DAY 2","화 11/17 · 한시장권 (도보)",[["08:30","호이안 숙소 체크아웃, 조식 후 다낭으로 이동 (택시 약 40분~1시간)"],["10:30","① 핑크성당 (아침 사진)"],["11:00","② 한시장 2층 114번 아오자이 맞춤 (1시간 제작)"],["12:00","③ 껌떰데이 점심 (제작 기다리는 동안)"],["13:30","한시장에서 아오자이 수령"],["14:30","④ 뷰스파 마사지"],["18:00","⑤ 선짜야시장 저녁 (택시 약 5분)"]]],
- ["DAY 3","수 11/18 · 미케비치 (택시 이동)",[["10:00","미케비치 산책"],["11:30","① 허벌피자 점심 (불쇼 되는 지점 확인)"],["14:00","카페 또는 마사지 (논스파는 미검증)"],["15:30","② 다모아마켓 기념품 (택시 약 15분)"],["17:30","③ 목식당 해산물 저녁, 카톡 예약 필수 (택시 약 8분)"],["만석이면","대안: Hải sản Bà Rô"]]],
+ ["DAY 1","월 11/16 · 14:00 도착 후 바로 호이안 · Grand Sunrise Palace Hoi An 1박",[["14:00","다낭 공항 착륙. 입국 심사와 수하물에 약 45분 잡기"],["15:00","공항에서 호이안으로 출발 (Grab이나 예약 택시, 약 40분~1시간)"],["16:15","호이안 도착, Grand Sunrise Palace Hoi An에 체크인하고 짐 두기"],["16:45","올드타운 산책, 내원교 (일몰 17:15쯤이라 빠르게), 빈티지샵 Tipsy 2hand와 Iron 2 Hand 구경"],["18:00","① Di Cho Hoi An 저녁 (예약 권장)"],["19:30","② 소원배 (19:30 이후가 한산, 비나 강 수위로 막힐 수 있음)"],["20:30","야시장 구경"],["21:30","Grand Sunrise Palace Hoi An으로 돌아가 휴식 (호이안 1박)"]]],
+ ["DAY 2","화 11/17 · 한시장권 (도보)",[["08:30","호이안 숙소 체크아웃, 조식 후 다낭으로 이동 (택시 약 40분~1시간)"],["10:30","① 핑크성당 (아침 사진)"],["11:00","② 한시장 2층 114번 아오자이 맞춤 (1시간 제작)"],["12:00","③ 껌떰데이 점심 (제작 기다리는 동안), 근처 Tiệm Gốm Lá 빈티지 그릇 구경"],["13:30","한시장에서 아오자이 수령"],["14:30","④ 뷰스파 마사지"],["18:00","⑤ 선짜야시장 저녁 (택시 약 5분)"]]],
+ ["DAY 3","수 11/18 · 미케비치 (택시 이동)",[["10:00","미케비치 산책"],["11:30","① 허벌피자 점심 (불쇼 되는 지점 확인)"],["14:00","미케비치 빈티지샵 돌기: Hana 34, Nighki2hand, Yen May, 43DMT (Hana는 월요일 12:30 오픈. 마사지·카페는 선택)"],["15:30","② 다모아마켓 기념품 (택시 약 15분)"],["17:30","③ 목식당 해산물 저녁, 카톡 예약 필수 (택시 약 8분)"],["만석이면","대안: Hải sản Bà Rô"]]],
  ["DAY 4","목 11/19 · 다낭 여유일 (우기 예비일)",[["오전","비 때문에 못 한 일정 몰아서 하기. 호이안이 비로 막혔다면 이 날로 이동"],["점심","Poseidon 뷔페 (11:00~14:00, 미검증) 또는 Bà Rô"],["오후","① 한시장 쇼핑 마무리, 마사지"],["17:30","② 헬리오야시장 (17:00~22:30, 롯데마트와 가까움, 운영 확인 필요)"],["밤","용다리 일반 야경 (불쇼는 금·토·일이라 이번 일정에선 못 봄)"]]],
  ["DAY 5","금 11/20 · 귀국일 (14:00 출발, 한국 20:00쯤 도착)",[["07:30","호텔 조식이나 근처 아침 (칼디앤모어 반미는 미검증)"],["08:30","한시장이나 근처에서 마지막 기념품 (숙소가 한시장 근처일 때)"],["10:00","숙소 체크아웃, 공항으로 출발 (시내에서 약 20~30분)"],["11:00","다낭 공항 도착, 체크인 (국제선은 출발 3시간 전)"],["14:00","출발"]]],
 ];
@@ -973,7 +982,10 @@ UN.forEach(function(x){var d=el("div");d.appendChild(el("b",null,"@"+x[0]+" · "
 var ex=document.getElementById("ex");
 EX.forEach(function(x){var d=el("div");d.appendChild(el("b",null,x[0].indexOf(" ")>0&&x[0].indexOf("_")<0&&x[0].indexOf(".")<0?x[0]:"@"+x[0]));d.appendChild(el("span",null,x[1]));ex.appendChild(d)});
 render();
-var ROUTES={"DAY 1":[9,8],"DAY 2":[11,10,2,7,4],"DAY 3":[3,6,1],"DAY 4":[10,5]};
+var PT={};P.forEach(function(p){PT["p"+p.n]={n:p.name.split(" (")[0],lat:p.lat,lon:p.lon}});
+VS.forEach(function(v,i){PT["v"+i]={n:v.name.split(" (")[0],lat:v.lat,lon:v.lon}});
+PT.hoi={n:"예약 숙소(Grand Sunrise)",lat:BOOKED.lat,lon:BOOKED.lon};PT.air={n:"다낭 공항",lat:16.0439,lon:108.1994};
+var ROUTES={"DAY 1":["air","hoi","v0","v1","p9","p8","hoi"],"DAY 2":["hoi","p11","p10","p2","v4","p7","p4"],"DAY 3":["p3","v5","v7","v6","v8","p6","p1"],"DAY 4":["p10","p5"]};
 var rtLayer=L.layerGroup().addTo(map),rtSel=null;
 function hav(a,b){var R=6371,r=Math.PI/180,dl=(b[0]-a[0])*r,dg=(b[1]-a[1])*r,x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dg/2)*Math.sin(dg/2);return 2*R*Math.asin(Math.sqrt(x))}
 function showRoute(k){
@@ -981,14 +993,16 @@ function showRoute(k){
   Array.prototype.forEach.call(document.querySelectorAll("#rt .chip"),function(b){b.setAttribute("aria-pressed",String(b.textContent===rtSel))});
   var info=document.getElementById("rtinfo");
   if(!rtSel){info.textContent="DAY 버튼을 누르면 그날 동선이 지도에 그려져요.";return}
-  var ids=ROUTES[rtSel],pts=ids.map(function(n){var p=P.filter(function(x){return x.n===n})[0];return[p.lat,p.lon]}),txt=[],tot=0;
-  L.polyline(pts,{color:"#e8590c",weight:4,dashArray:"8 8",opacity:.9}).addTo(rtLayer);
-  ids.forEach(function(n,i){var p=pts[i];L.marker(p,{icon:L.divIcon({className:"",html:'<div style="background:#e8590c;color:#fff;border:2px solid #fff;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font:700 12px sans-serif;transform:translate(14px,-34px)">'+(i+1)+'</div>',iconSize:[22,22]}),zIndexOffset:2000,interactive:false}).addTo(rtLayer)});
+  var ids=ROUTES[rtSel],pts=ids.map(function(n){return[PT[n].lat,PT[n].lon]}),txt=[],tot=0;
+  var dd=[];for(var q=1;q<pts.length;q++)dd.push(hav(pts[q-1],pts[q]));
+  var inc=pts.map(function(_,q){return (q>0&&dd[q-1]<=8)||(q<pts.length-1&&dd[q]<=8)}),cnt=0;
+  for(var q2=1;q2<pts.length;q2++)if(dd[q2-1]<=8)L.polyline([pts[q2-1],pts[q2]],{color:"#e8590c",weight:4,dashArray:"8 8",opacity:.9}).addTo(rtLayer);
+  ids.forEach(function(n,i){if(!inc[i])return;cnt++;var p=pts[i];L.marker(p,{icon:L.divIcon({className:"",html:'<div style="background:#e8590c;color:#fff;border:2px solid #fff;border-radius:50%;width:22px;height:22px;display:grid;place-items:center;font:700 12px sans-serif;transform:translate(14px,-34px)">'+cnt+'</div>',iconSize:[22,22]}),zIndexOffset:2000,interactive:false}).addTo(rtLayer)});
   for(var i=1;i<pts.length;i++){var d=hav(pts[i-1],pts[i]);tot+=d;
-    var a=P.filter(function(x){return x.n===ids[i-1]})[0].name.split(" (")[0],b=P.filter(function(x){return x.n===ids[i]})[0].name.split(" (")[0];
-    txt.push(a+" → "+b+": 직선 "+d.toFixed(1)+"km"+(d<0.5?" (도보)":" (택시 약 "+Math.round(d/20*60+4)+"분)"))}
+    var a=PT[ids[i-1]].n,b=PT[ids[i]].n;
+    txt.push(a+" → "+b+": 직선 "+d.toFixed(1)+"km"+(d<0.5?" (도보)":d>8?" (차량 약 "+Math.round(d*1.3/40*60)+"분, 지도 선은 생략)":" (택시 약 "+Math.round(d/20*60+4)+"분)"))}
   info.textContent=rtSel+" · "+txt.join(" / ")+" · 합계 직선 "+tot.toFixed(1)+"km. 실제 도로는 더 길 수 있어요.";
-  map.fitBounds(pts,{padding:[50,50],maxZoom:16})}
+  map.fitBounds(pts.filter(function(_,q){return inc[q]}),{padding:[50,50],maxZoom:16})}
 Object.keys(ROUTES).forEach(function(k){var b=el("button","chip",k);b.type="button";b.setAttribute("aria-pressed","false");b.addEventListener("click",function(){showRoute(k)});document.getElementById("rt").appendChild(b)});
 render();map.invalidateSize();fit();setTimeout(function(){map.invalidateSize();fit()},300);
 </script>
